@@ -11,17 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', function () {return view('welcome');});
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('ajax/users', 'AjaxContoller@getAvatarByEmail')->name('getAvatarByEmail');
-
-
-
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+Route::group(
+  [
+    'prefix' => 'laravel-filemanager',
+   'middleware' => ['web', 'auth'],
+ ], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });

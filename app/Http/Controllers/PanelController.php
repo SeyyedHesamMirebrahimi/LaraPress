@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class PanelController extends Controller
 {
@@ -27,5 +29,15 @@ class PanelController extends Controller
     }
 
 
+    public function editProfile()
+    {
+      return View('dashboard.editProfile',['user'=>Auth::User()]);
+    }
+
+    public function editProfilePOST()
+    {
+      dd('yeap');
+      return View('dashboard.editProfile',['user'=>Auth::User()]);
+    }
 
 }

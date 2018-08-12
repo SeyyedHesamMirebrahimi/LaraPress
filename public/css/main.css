@@ -1,7 +1,4 @@
-body{
-  direction: rtl!important;
 
-}
 input{text-align: right!important;}
 .label-input100{
   text-align: right!important;
@@ -131,7 +128,11 @@ input{text-align: right!important;}
 
 body, html {
 	height: 100%;
+    direction: rtl!important;
 	font-family: 'IRANSans'!important;
+}
+body,h1,h2,h3,h4,h5,h6,span,p{
+  font-family: 'IRANSans'!important;
 }
 
 /*---------------------------------------------*/

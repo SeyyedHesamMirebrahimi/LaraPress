@@ -50,8 +50,8 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => 'http://127.0.0.1:8000'.'/storage',
+            'root' => public_path(),
+            'url' => 'http://127.0.0.1:8000'.'/',
             'visibility' => 'public',
         ],
 
