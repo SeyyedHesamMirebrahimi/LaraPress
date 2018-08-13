@@ -1,5 +1,11 @@
 @extends('layouts.auth')
 @section('content')
+
+
+
+
+
+
 <form class="login100-form validate-form" method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
       @csrf
   <span class="login100-form-title p-b-43">
@@ -31,14 +37,14 @@
     </button>
   </div>
 </form>
-@if ($errors->has('email') || $errors->has('password'))
-<script type="text/javascript">
-swal({
-      type: 'error',
-      title: 'اوپس...',
-      text: 'اطلاعات نامعتبر',
-      footer: '<a href="{{ route('password.request') }}">{{ __('فراموشی کلمه عبور') }}</a>'
-    });
-</script>
+@if($errors->any())
+    <script type="text/javascript">
+        swal({
+            type: 'error',
+            title: 'اوپس...',
+            text: "{{$errors->first()}}",
+            footer: '<a href="{{ route('password.request') }}">{{ __('فراموشی کلمه عبور') }}</a>'
+        });
+    </script>
 @endif
 @endsection

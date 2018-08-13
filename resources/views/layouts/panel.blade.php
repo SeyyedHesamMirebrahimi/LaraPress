@@ -90,7 +90,43 @@
         <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
         <script>var resizefunc = [];</script>
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
-
+        <script src="{{asset('js/sweetalert.min.js')}}"></script>
+        @if(Session::has('success'))
+            <script>
+                swal({
+                    text: "{{ Session::get('success') }}",
+                    icon: "success",
+                    button: "ok",
+                });
+            </script>
+        @endif
+        @if(Session::has('danger'))
+            <script>
+                swal({
+                    text: "{{ Session::get('danger') }}",
+                    icon: "error",
+                    button: "ok",
+                });
+            </script>
+        @endif
+        @if(Session::has('warning'))
+            <script>
+                swal({
+                    text: "{{ Session::get('warning') }}",
+                    icon: "warning",
+                    button: "ok",
+                });
+            </script>
+        @endif
+        @if(Session::has('info'))
+            <script>
+                swal({
+                    text: "{{ Session::get('info') }}",
+                    icon: "info",
+                    button: "ok",
+                });
+            </script>
+        @endif
         <script src="{{ asset('assets/plugins/fileuploads/js/dropify.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap-rtl.min.js') }}"></script>
         <script src="{{ asset('assets/js/detect.js') }}"></script>

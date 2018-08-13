@@ -78,7 +78,6 @@ $('#email').change(function() {
         success: function(result){
             if (result.res == true){
                 $('#userInfo').hide().fadeOut(1500).html('<img src="'+result.url+'" alt="avatar">'+'<h2>'+result.name+'</h2>').fadeIn(1500);
-                $('#email').attr("disabled", true);
             }
         }});
 })

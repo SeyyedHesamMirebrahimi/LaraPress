@@ -45,7 +45,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => public_path().'/uploads/',
         ],
 
         'public' => [
@@ -54,6 +54,15 @@ return [
             'url' => 'http://127.0.0.1:8000'.'/',
             'visibility' => 'public',
         ],
+
+
+        'avatars' => [
+            'driver' => 'local',
+            'root' => public_path().'/avatars/',
+            'url' => 'http://127.0.0.1:8000'.'/',
+            'visibility' => 'public',
+        ],
+
 
         's3' => [
             'driver' => 's3',

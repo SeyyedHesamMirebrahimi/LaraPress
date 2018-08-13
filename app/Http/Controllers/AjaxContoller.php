@@ -27,7 +27,7 @@ class AjaxContoller extends Controller
       ]);
     }else {
       $name = $user->name;
-      $url = 'uploads'.'avatar.png';
+      $url = route('index').'/avatars/'.$user->avatar;
       return Response([
         'res' => true,
         'url' => $url,
