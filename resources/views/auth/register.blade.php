@@ -6,9 +6,14 @@
 
                         </span>
                         <div class="wrap-input100 validate-input">
-                          <input class="input100 shadow-input " name="name" value="{{ old('name') }}" required autofocus autocomplete="off">
+                            <input class="input100 shadow-input " name="name" value="{{ old('name') }}" required autofocus autocomplete="off">
+                            <span class="focus-input100"></span>
+                            <span class="label-input100">{{ __('نام') }}</span>
+                        </div>
+                        <div class="wrap-input100 validate-input">
+                          <input class="input100 shadow-input " name="family" value="{{ old('family') }}" required autofocus autocomplete="off">
                           <span class="focus-input100"></span>
-                          <span class="label-input100">{{ __('نام و نام خانوادگی') }}</span>
+                          <span class="label-input100">{{ __('نام خانوادگی') }}</span>
                         </div>
                         <div class="wrap-input100 validate-input">
                           <input class="input100 shadow-input " name="email" value="{{ old('email') }}" required autofocus autocomplete="off">

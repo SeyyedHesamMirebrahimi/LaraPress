@@ -14,6 +14,7 @@
         <link href="{{ asset('assets/css/menu.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')  }}">
         <link rel="stylesheet" href="{{ asset('css/dropify.css') }}">
         <script src="https://code.jquery.com/jquery-3.3.1.js" charset="utf-8"></script>
         <script src="{{ asset('js/dropify.js') }}" charset="utf-8"></script>
@@ -33,7 +34,7 @@
                                 </button>
                             </li>
                             <li>
-                                <h4 class="page-title">پنل کاربری</h4>
+                                <h4 class="page-title">@yield('title')</h4>
                             </li>
                         </ul>
                     </div>
@@ -84,7 +85,7 @@
                 </footer>
             </div>
         </div>
-
+@yield('js')
         <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
         <script>var resizefunc = [];</script>

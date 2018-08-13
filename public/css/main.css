@@ -702,3 +702,13 @@ font-family: 'IRANSans'!important;
 .login100-form-btn {
   background: #085dab;
 }
+.bg-telegram{
+    background-color: #0088cc;
+}
+.bg-instagram , .bg-instagram:hover{
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    border: none;
+    color: #fff;
+    padding: 6px 12px!important;
+}
