@@ -22,3 +22,6 @@ Route::group(
  ], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+Route::get('/feeds', 'PanelController@feeds')->name('feeds');
+

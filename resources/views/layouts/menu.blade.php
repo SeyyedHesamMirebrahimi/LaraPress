@@ -1,15 +1,23 @@
 <!--- Sidemenu -->
 <div id="sidebar-menu">
     <ul>
-      <li class="text-muted menu-title">Navigation</li>
+      <li class="text-muted menu-title">ناوبری ناحیه کاربری</li>
 
         <li>
-            <a href="index.html" class="waves-effect active"><i class="zmdi zmdi-view-dashboard"></i> <span> Dashboard </span> </a>
+            <a href="{{Route('panelDashboard')}}" class="waves-effect active"><i class="zmdi zmdi-view-dashboard"></i> <span> داشبورد </span> </a>
         </li>
-
         <li>
             <a href="{{Route('panelDashboard')}}/laravel-filemanager" class="waves-effect"><i class="zmdi zmdi-format-underlined"></i> <span> رسانه </span> </a>
         </li>
+        <li>
+            <a href="{{Route('RssFeeder')}}" class="waves-effect"><i class="zmdi zmdi-format-underlined"></i> <span> اخبار من </span> </a>
+        </li>
+        <li>
+            <a href="{{Route('addRssFeed')}}" class="waves-effect"><i class="zmdi zmdi-format-underlined"></i> <span> افزودن فید </span> </a>
+        </li>
+
+
+
 
         <li class="has_sub">
             <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-invert-colors"></i> <span> User Interface </span> <span class="menu-arrow"></span></a>
