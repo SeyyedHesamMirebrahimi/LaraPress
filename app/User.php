@@ -32,6 +32,32 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\RssFeedsModel');
     }
-    
-    
+
+
+    public function isAdmin()
+    {
+        if (in_array('ROLE_ADMIN',unserialize($this->getRole()))){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role): void
+    {
+        $this->role = $role;
+    }
+
+
 }

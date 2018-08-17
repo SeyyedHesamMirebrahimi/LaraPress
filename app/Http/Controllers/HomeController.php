@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-      dd(env('APP_URL'));
+        $user = Auth::user()->isAdmin();
+      dd($user);
         return view('home');
     }
 

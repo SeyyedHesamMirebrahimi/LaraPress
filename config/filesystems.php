@@ -62,8 +62,12 @@ return [
             'url' => 'http://127.0.0.1:8000'.'/',
             'visibility' => 'public',
         ],
-
-
+        'categorys' => [
+            'driver' => 'local',
+            'root' => public_path().'/categorys/',
+            'url' => 'http://127.0.0.1:8000'.'/',
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

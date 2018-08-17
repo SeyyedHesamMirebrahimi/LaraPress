@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Articles;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,6 +11,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\RssFeedsModel;
+use App\Models\Category;
 use ArandiLopez\Feed\Providers\FeedServiceProvider as Feed;
 
 class PanelController extends Controller
@@ -21,10 +23,13 @@ class PanelController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function dashboard()
     {
 
@@ -32,11 +37,19 @@ class PanelController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function editProfile()
     {
       return View('dashboard.editProfile',['user'=>Auth::User()]);
     }
 
+    
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editProfilePOST(Request $request)
     {
         try{
@@ -55,19 +68,17 @@ class PanelController extends Controller
             $user->save();
             return back()->with('success', 'اطلاعات با موفقیت ذخیره گردید');
         }catch (\Exception $e){
-//            send error data to telegram bot
             return back()->with('danger', 'خطا در ذخیره اطلاعات');
         }
     }
 
+    
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePasswordPOST(Request $request)
     {
-
-
-
-//        dd($request);
-
-
         $user = User::find(Auth::user()->id);
         $current_password = $user->password;
         if (Hash::check($request->get('current_password'), $current_password)){
@@ -78,7 +89,6 @@ class PanelController extends Controller
                     $user->save();
                     return back()->with('success', 'کلمه عبور با موفقیت بروز شد');
                 }catch (\Exception $e){
-//            send error data to telegram bot
                     return back()->with('danger', 'خطا در بروزرسانی کلمه عبور');
                 }
             }else{
@@ -89,6 +99,11 @@ class PanelController extends Controller
         }
     }
 
+    
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateProfileAvatarPOST(Request $request)
     {
         if ($request->file('avatar')){
@@ -96,7 +111,6 @@ class PanelController extends Controller
                 $user = User::find(Auth::user()->id);
                 $path = $request->file('avatar')->store(
                     '/',
-//                    uniqid('user_', true).'.'.$request->file('avatar')->getClientOriginalExtension(),
                     'avatars'
                 );
                 $user->avatar = $path;
@@ -104,35 +118,28 @@ class PanelController extends Controller
                 $user->save();
                 return back()->with('success', 'بروزرسانی آواتار با موفقیت انجام شد');
             }catch (\Exception $e){
-//            send error data to telegram bot
                 return back()->with('danger', 'خطا در بروزرسانی آواتار');
             }
         }else{
             return back()->with('danger', 'فایلی انتخاب نشده');
         }
     }
-
-
+    
+    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function addRssFeed()
     {
         $feed = RssFeedsModel::all();
-//        $userFeedUrls = Auth::user()->feeds;
-//        $feedUrls = [];
-//        foreach ($userFeedUrls as $userFeedUrl) {
-//            array_push($feedUrls,$userFeedUrl->url);
-//        }
-//        $feeds = [];
-//        foreach ($feedUrls as $feedUrl) {
-//            $feed = Feeds::make('https://uniquewebco.ir/feed');
-//            $data = array(
-//                $feed->get_title(),
-//                $feed->get_permalink(),
-//            );
-//            array_push($feeds , $data);
-//        }
         return View('dashboard.addRssFeed',compact('feed'));
     }
 
+    
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addRssFeedPOST(Request $request)
     {
         try{
@@ -144,9 +151,15 @@ class PanelController extends Controller
             $feed->save();
             return back()->with('success', 'منبع خبری با موفقیت ثبت شد');
         }catch (\Exception $e){
-            return back()->with('danger', $e);
+            return back()->with('danger','خطایی رخ داد');
         }
     }
+
+    
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteRssFeed($id)
     {
         $feed = RssFeedsModel::find($id);
@@ -156,7 +169,7 @@ class PanelController extends Controller
                     $feed->delete();
                     return back()->with('success', 'منبع خبری با موفقیت حذف شد');
                 }catch (\Exception $e){
-                    return back()->with('danger', $e);
+                    return back()->with('danger', 'خطایی رخ داد');
                 }
             }else{
                 return back()->with('danger', 'شما اجازه حذف این منبع را ندارید');
@@ -167,6 +180,9 @@ class PanelController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function RssFeeder()
     {
         $userFeeds = RssFeedsModel::where('user_id',Auth::id())->get();
@@ -180,5 +196,141 @@ class PanelController extends Controller
             $siteFeeds = array_merge($siteFeeds,array_slice($xml->xpath("//item"),0,10) );
         }
         return View('dashboard.RssFeeder',compact('siteFeeds'));
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function categoryList()
+    {
+        $data = Category::all();
+        return View('dashboard.categoryList',compact('data'));
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function categoryAdd()
+    {
+        return View('dashboard.addCategory');
+    }
+
+    
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function categoryAddPOST(Request $request)
+    {
+        try{
+            $category = new Category;
+            $name = $request->get('name');
+            $slug = str_slug($request->get('slug'));
+            if ($request->file('thumbnail')){
+                $thumbnail = $request->file('thumbnail')->store(
+                    '/',
+                    'categorys'
+                );
+                $category->thumbnail = $thumbnail;
+            }
+            if ($request->file('background')){
+                $background = $request->file('background')->store(
+                    '/',
+                    'categorys'
+                );
+                $category->background = $background;
+            }
+            $color = $request->get('color');
+            $category->name = $name;
+            $category->slug = $slug;
+            $category->color= $color;
+            if ($category::where('slug',$slug)->count() > 0){
+                return back()->with('danger', 'نامک مورد نظر از قبل موجود است');
+            }
+            $category->save();
+            return redirect()->route('categoryList')->with('success','دسته مورد نظر با موفقیت اضافه شد');
+        }catch (\Exception $e){
+            return back()->with('danger','خطایی رخ داد');
+        }
+    }
+
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function categoryDelete($id)
+    {
+        try{
+            $category = Category::find($id);
+            $category->delete();
+            $articles = Articles::where('category_id',$id);
+            foreach ($articles as $article) {
+                $article->category_id = null;
+                $article->save();
+            }
+            return back()->with('success', 'دسته مورد نظر با موفقیت حذف شد');
+        }catch (\Exception $e){
+            return back()->with('danger', 'خطا در حذف دسته');
+        }
+    }
+
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function categoryEdit($id)
+    {
+        $category = Category::find($id);
+        return View('dashboard.editCategory',compact('category'));
+    }
+
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function categoryEditPOST($id , Request $request)
+    {
+        try{
+            $category = Category::find($id);
+            $slug = str_slug($request->get('slug'));
+            $category->slug = $slug;
+            if ($category->slug != $request->get('slug')){
+                if ($category::where('slug',$slug)->count() > 0){
+                    return back()->with('danger', 'نامک مورد نظر از قبل موجود است');
+                }
+            }
+            $name = $request->get('name');
+            if ($request->file('thumbnail')){
+                $thumbnail = $request->file('thumbnail')->store(
+                    '/',
+                    'categorys'
+                );
+                $category->thumbnail = $thumbnail;
+            }elseif($request->file('thumbnail') == null){
+                $category->thumbnail = null;
+            }
+            if ($request->file('background')){
+                $background = $request->file('background')->store(
+                    '/',
+                    'categorys'
+                );
+                $category->background = $background;
+            }elseif($request->file('background') == null){
+                $category->background = null;
+            }
+            $color = $request->get('color');
+            $category->name = $name;
+            $category->color= $color;
+            $category->save();
+            return redirect()->route('categoryList')->with('success','دسته مورد نظر با موفقیت بروزرسانی شد');
+        }catch (\Exception $e){
+            return back()->with('danger','خطایی رخ داد');
+        }
     }
 }

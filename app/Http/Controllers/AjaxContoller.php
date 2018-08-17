@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User as User;
+use Illuminate\Support\Facades\Auth;
 
 class AjaxContoller extends Controller
 {
   public function getAvatarByEmail(Request $request)
   {
+
+      
+
+
+
+
     $email = $request->email;
     $userCount = User::where('email',$email)->count();
     $user = User::where('email',$email)->first();

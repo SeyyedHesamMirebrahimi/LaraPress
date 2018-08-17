@@ -24,4 +24,5 @@ Route::group(
 });
 
 Route::get('/feeds', 'PanelController@feeds')->name('feeds');
+Route::get('/apic', 'PanelController@categoryEdit');
 

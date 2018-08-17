@@ -99,7 +99,7 @@
                         </div>
                         <div class="m-t-5">
                             <button type="submit" class="btn btn-primary pull-right" name="button">بروزرسانی اطلاعات</button>
-                            <div class="pull-left text-danger">عضو از تاریخ {{ gregorian_to_jalali($user->created_at)   }}</div>
+                            <div class="pull-left text-danger">عضو از تاریخ {{ gregorian_to_jalali($user->created_at)}}</div>
                         </div>
                     </form>
                 </div><!-- end col -->
