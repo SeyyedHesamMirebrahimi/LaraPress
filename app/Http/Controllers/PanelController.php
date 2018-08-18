@@ -333,4 +333,15 @@ class PanelController extends Controller
             return back()->with('danger','خطایی رخ داد');
         }
     }
+
+
+    public function articleAdd()
+    {
+        return View('dashboard.addArticle');
+    }
+    
+    
+    
+    
+    
 }

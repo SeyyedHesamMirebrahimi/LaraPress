@@ -162,7 +162,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
 
 
-
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
     ],
 
     /*
@@ -214,7 +214,11 @@ return [
          'Image' => Intervention\Image\Facades\Image::class,
 
 
-
+        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
+        // or
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ],
 
 ];

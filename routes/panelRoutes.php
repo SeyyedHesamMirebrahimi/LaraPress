@@ -25,4 +25,11 @@ Route::get('/Category/edit/{id}','PanelController@categoryEdit')->name('category
 Route::post('/Category/edit/{id}','PanelController@categoryEditPOST')->name('categoryEditPOST');
 Route::get('/Category/delete/{id}','PanelController@categoryDelete')->name('categoryDelete');
 //Category
+
+
+Route::get('/Articles/add','PanelController@articleAdd')->name('articleAdd');
+Route::post('/Articles/add','PanelController@articleAddPOST')->name('articleAddPOST');
+
+
+
 ?>
