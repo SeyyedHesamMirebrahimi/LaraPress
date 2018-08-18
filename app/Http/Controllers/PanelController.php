@@ -335,13 +335,63 @@ class PanelController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function articleAdd()
     {
-        return View('dashboard.addArticle');
+        $categories = Category::all();
+        return View('dashboard.addArticle',compact('categories'));
     }
-    
-    
-    
+
+
+    public function articleAddPOST(Request $request)
+    {
+        $slug = str_slug($request->get('slug'),'-');
+        $count = Articles::where(
+            ['slug' => $slug,]
+        )->count();
+        if ($count > 0){
+            return back()->with('danger','نامک مورد نظر قبلا استفاده شده است')->withInput();
+        }
+
+        try{
+        $article = new Articles();
+        $article->title = $request->get('title');
+        $article->slug = $slug;
+        $article->comment_status = $request->get('comment_status');
+        $article->category_id = $request->get('category');
+        $article->content = $request->get('content');
+        $article->seo = serialize([
+            'keyword' => $request->get('meta_keyword'),
+            'description' => $request->get('meta_description'),
+        ]);
+        $article->post_status = $request->get('post_status');
+        $path = $request->file('thumbnail')->store(
+            '/',
+            'articles'
+        );
+        $article->thumbnail = $path;
+        $article->updated_at = new \DateTime();
+        $article->save();
+            return redirect()->route('articlesList')->with('success','مقاله با موفقیت ثبت شد');
+        }catch (\Exception $e){
+            return back()->with('danger','خطا در ثبت مقاله')->withInput();
+        }
+        $created_at_input = explode('-',$request->get('created_at'));
+        $jalaliDate = explode('/',$created_at_input[0]);
+        $day =jalali_to_gregorian(toLatin_number($jalaliDate[0]),toLatin_number($jalaliDate[1]),toLatin_number($jalaliDate[2]),$mod='-');
+        $time = toLatin_number($created_at_input[1]);
+        $created_at = date_create($day.' '.$time);
+
+
+
+
+
+
+
+
+    }
     
     
 }

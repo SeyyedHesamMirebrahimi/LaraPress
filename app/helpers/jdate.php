@@ -42,6 +42,8 @@ function gregorian_to_jalali($jdate){
 
 
 function jalali_to_gregorian($jy,$jm,$jd,$mod=''){
+
+
     if($jy>979){
         $gy=1600;
         $jy-=979;
@@ -70,3 +72,41 @@ function jalali_to_gregorian($jy,$jm,$jd,$mod=''){
     return($mod=='')?array($gy,$gm,$gd):$gy.$mod.$gm.$mod.$gd;
 }
 
+
+
+/**
+ * convert latin number to persian
+ *
+ * @param string $string
+ *   string that we want change number format
+ *
+ * @return formated string
+ */
+function toPersian_number($string) {
+    //arrays of persian and latin numbers
+    $persian_num = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+    $latin_num = range(0, 9);
+
+    $string = str_replace($latin_num, $persian_num, $string);
+
+    return $string;
+}
+
+
+/**
+ * convert persian number to latin
+ *
+ * @param string $string
+ *   string that we want change number format
+ *
+ * @return formated string
+ */
+function toLatin_number($string) {
+    //arrays of persian and latin numbers
+    $persian_num = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+    $latin_num = range(0, 9);
+
+    $string = str_replace($persian_num, $latin_num, $string);
+
+    return $string;
+}

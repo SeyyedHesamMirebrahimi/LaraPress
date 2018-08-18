@@ -62,6 +62,15 @@ return [
             'url' => 'http://127.0.0.1:8000'.'/',
             'visibility' => 'public',
         ],
+
+        'articles' => [
+            'driver' => 'local',
+            'root' => public_path().'/articles/',
+            'url' => 'http://127.0.0.1:8000'.'/',
+            'visibility' => 'public',
+        ],
+
+
         'categorys' => [
             'driver' => 'local',
             'root' => public_path().'/categorys/',

@@ -67,7 +67,9 @@
         <script src="https://unpkg.com/persian-datepicker@1.1.3/dist/js/persian-datepicker.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $(".jdate").pDatepicker();
+                $(".jdate").pDatepicker({
+                    format: 'YYYY/MM/DD-H:MM:ss',
+                });
             });
         </script>
     </head>
@@ -179,7 +181,9 @@
                 });
             </script>
         @endif
-
+        <style>
+            .text-r{text-align: right!important;}
+        </style>
 
         <script src="{{ asset('panel/assets/plugins/fileuploads/js/dropify.min.js') }}"></script>
         <script src="{{ asset('panel/assets/js/bootstrap-rtl.min.js') }}"></script>
