@@ -48,7 +48,7 @@
                                     @endif
                                 </td>
 
-                                {{--<td class=" text-center"><button class="btn-sm btn-warning">{{ gregorian_to_jalali($category->created_at)}}</button></td>--}}
+                                <td class=" text-center"><button class="btn-sm btn-warning">{{ gregorian_to_jalali($category->created_at)}}</button></td>
                                 <td class=" text-center">
                                     <a href="{{Route('categoryEdit',['id' => $category->id])}}">
                                         <button class="btn-sm btn-primary">ویرایش</button>

@@ -69,7 +69,12 @@ return [
             'url' => 'http://127.0.0.1:8000'.'/',
             'visibility' => 'public',
         ],
-
+        'services' => [
+            'driver' => 'local',
+            'root' => public_path().'/services/',
+            'url' => 'http://127.0.0.1:8000'.'/',
+            'visibility' => 'public',
+        ],
 
         'categorys' => [
             'driver' => 'local',

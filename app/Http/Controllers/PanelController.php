@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\RssFeedsModel;
 use App\Models\Category;
+use App\Models\Services as services;
 use ArandiLopez\Feed\Providers\FeedServiceProvider as Feed;
 
 class PanelController extends Controller
@@ -485,4 +486,26 @@ class PanelController extends Controller
         $time = toLatin_number($created_at_input[1]);
         $created_at = date_create($day.' '.$time);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
