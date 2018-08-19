@@ -105,13 +105,13 @@
                         <div class="form-group row">
                             <label class="col-md-3 control-label text-r">کلیدواژه کانونی</label>
                             <div class="col-md-9">
-                                <input type="text" name="meta_keyword" class="form-control" value="{{ unserialize($article->seo)['keyword'] }}" required="">
+                                <input type="text" name="meta_keyword" class="form-control" value="{{ unserialize($article->seo)['keyword'] }}" required="" disabled="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">توضیح متا گوگل </label>
                             <div class="col-md-9">
-                                <textarea name="meta_description" class="form-control" id="" cols="1" rows="1">{{ unserialize($article->seo)['description'] }}</textarea>
+                                <textarea name="meta_description" class="form-control" id="" cols="1" rows="1" disabled="">{{ unserialize($article->seo)['description'] }}</textarea>
                             </div>
                         </div>
                     </div>

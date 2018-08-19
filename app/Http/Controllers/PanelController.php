@@ -263,14 +263,18 @@ class PanelController extends Controller
      */
     public function categoryDelete($id)
     {
+     if ($id == 0){
+         return back()->with('danger', 'دسته پایه حذف نمیشود');
+     }
         try{
-            $category = Category::find($id);
-            $category->delete();
-            $articles = Articles::where('category_id',$id);
+            $articles = Articles::where('category_id',$id)->get();
             foreach ($articles as $article) {
-                $article->category_id = null;
-                $article->save();
+                $single_article = Articles::find($article->id);
+                $single_article->category_id = '0';
+                $single_article->save();
             }
+             $category = Category::find($id);
+             $category->delete();
             return back()->with('success', 'دسته مورد نظر با موفقیت حذف شد');
         }catch (\Exception $e){
             return back()->with('danger', 'خطا در حذف دسته');
