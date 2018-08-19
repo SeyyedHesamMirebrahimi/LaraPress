@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return 'oops';
-});
+//Route::get('/user', function (Request $request) {
+//    return 'oops';
+//});

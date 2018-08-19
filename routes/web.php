@@ -1,5 +1,6 @@
 <?php
-
+use App\Models\Articles;
+use App\Models\Category;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +26,11 @@ Route::group(
 
 Route::get('/feeds', 'PanelController@feeds')->name('feeds');
 Route::get('/apic', 'PanelController@categoryEdit');
+Route::get('/some',function(){
+    $items = Articles::find(1)->category;
+    dd($items->name);
+    foreach ($items as $item) {
+        var_dump($item->name);
+    }
+});
 

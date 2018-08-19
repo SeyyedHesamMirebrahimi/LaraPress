@@ -23,7 +23,7 @@ class PanelController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth');
     }
 
 
@@ -389,9 +389,96 @@ class PanelController extends Controller
 
 
 
+        
 
 
     }
-    
-    
+
+    public function articlesList(Request $request , $page = 1)
+    {
+        $limit = 10;
+        $page = $request->query->get('page');
+        if ($page == ''){
+            $page = 1;
+        }
+        $articles = Articles::skip(($page-1)*$limit)->take($limit)->get();
+        $buttonCount =Articles::count()/10 ;
+        $buttonCount = explode('.',$buttonCount);
+        $buttonCount = $buttonCount[0]+1;
+        return View('dashboard.articlesList',compact('buttonCount','articles'));
+    }
+
+
+    public function articlesDelete($id)
+    {
+        try{
+            $article = Articles::find( $id );
+            $article->delete();
+            return redirect()->route('articlesList')->with('success','مقاله مورد نظر با موفقیت حذف شد');
+        }catch (\Exception $e){
+            return redirect()->route('articlesList')->with('danger','خطایی رخ داد');
+        }
+    }
+
+    public function articlesEdit($id)
+    {
+        $article = Articles::find($id);
+        $categories = Category::all();
+        return View('dashboard.editArticle',compact('article','categories'));
+    }
+
+    public function articlesEditPOST(Request $request,$id)
+    {
+        $slug = str_slug($request->get('slug'),'-');
+//        $count = Articles::where(
+//            ['slug' => $slug,]
+//        )->count();
+//        if ($count > 0){
+//            return back()->with('danger','نامک مورد نظر قبلا استفاده شده است')->withInput();
+//        }
+
+        try{
+            $article = Articles::find($id);
+            if ($request->get('title') != $article->title){
+                $article->title = $request->get('title');
+            }
+            if ($request->get('comment_status') != $article->comment_status){
+                $article->comment_status = $request->get('comment_status');
+            }
+            if ($request->get('category') != $article->category_id){
+                $article->category_id = $request->get('category');
+            }
+            if ($request->get('content') != $article->content){
+                $article->content = $request->get('content');
+            }
+            $article->seo = serialize([
+                'keyword' => $request->get('meta_keyword'),
+                'description' => $request->get('meta_description'),
+            ]);
+            if ($request->get('post_status') != $article->post_status){
+                $article->post_status = $request->get('post_status');
+            }
+            if ($request->file('thumbnail') != null){
+                $path = $request->file('thumbnail')->store(
+                    '/',
+                    'articles'
+                );
+                $article->thumbnail = $path;
+            }
+            $article->updated_at = new \DateTime();
+
+            if ($slug != $article->slug){
+                $article->slug = $slug;
+            }
+            $article->save();
+            return redirect()->route('articlesList')->with('success','مقاله با موفقیت ثبت شد');
+        }catch (\Exception $e){
+            return back()->with('danger','خطا در ثبت مقاله')->withInput();
+        }
+        $created_at_input = explode('-',$request->get('created_at'));
+        $jalaliDate = explode('/',$created_at_input[0]);
+        $day =jalali_to_gregorian(toLatin_number($jalaliDate[0]),toLatin_number($jalaliDate[1]),toLatin_number($jalaliDate[2]),$mod='-');
+        $time = toLatin_number($created_at_input[1]);
+        $created_at = date_create($day.' '.$time);
+    }
 }

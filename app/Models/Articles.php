@@ -3,36 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Articles extends Model
 {
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->category = $this->category();
-    }
-
-    public $category;
-
+    use SoftDeletes;
     public function category()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo('App\Models\Category');
     }
+    protected $guarded = ['created_at'];
 
-
-    /**
-     * @return mixed
-     */public function getCategory()
-    {
-        return $this->category;
-    }
-
-
-    /**
-     * @param mixed $category
-     */public function setCategory(): void
-    {
-        $this->category = $this->category();
-    }
-    }
+    protected $dates = ['deleted_at'];
+}

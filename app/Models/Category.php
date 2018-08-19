@@ -10,4 +10,5 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Articles');
     }
+    protected $guarded = ['created_at'];
 }

@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration
             $table->text('seo');
             $table->string('post_status');
             $table->string('comment_status');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

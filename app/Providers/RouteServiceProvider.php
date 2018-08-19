@@ -78,7 +78,7 @@ class RouteServiceProvider extends ServiceProvider
      * Define the Panel Routes.
      */
     protected function mapPanelRoutes(){
-      Route::prefix('panel')
+      Route::prefix('dashboard')
            ->middleware('web')
            ->namespace($this->namespace)
            ->group(base_path('routes/panelRoutes.php'));
